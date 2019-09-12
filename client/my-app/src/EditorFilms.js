@@ -13,7 +13,15 @@ const EditorFilms = (props) => {
             .then(res => res.json())
             .then(data => setData(data))
             .catch(err => console.log(err));
-    });
+    }, []);
+
+    const handleChange = (event) => {
+        let target = event.target;
+        
+        target.name == 'film' ? (newData.name = target.value) : (newData.year = target.value);
+    
+        setData(newData);
+      }
 
     const postEditedData =  (event) => {
         event.preventDefault();
@@ -45,12 +53,12 @@ const EditorFilms = (props) => {
             <div className='editor__wrapper'>
                 <div className='editor__input-container'>
                     <label htmlFor="film" className='editor__label'>Film's name: </label>
-                    <input type="text" id='film' className='editor__input' placeholder={newData.name} />
+                    <input type="text" id='film' name='film' className='editor__input' value={newData.name} onChange={handleChange} />
                 </div>
 
                 <div className='editor__input-container'>
                     <label htmlFor="year" className='editor__label'>Film's year: </label>
-                    <input type="text" id='year' className='editor__input' placeholder={newData.year} />
+                    <input type="text" id='year' name='year' className='editor__input' value={newData.year} onChange={handleChange} />
                 </div>
             </div>
 
