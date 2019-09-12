@@ -1,0 +1,114 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+.films {
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  border: 3px solid pink;
+}
+.films-head {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  background-color: aqua;
+}
+.films-body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  background-color: aquamarine;
+}
+.films-body__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 80%;
+}
+.films-body__row:not(:last-child) {
+  border-bottom: 2px solid black;
+}
+.films-body__row-insert {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.films-body__cell {
+  width: 250px;
+  text-align: center;
+}
+.films-body__cell span {
+  color: black;
+}
+.films-body__row-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+
+/*Editor*/
+.editor {
+  width: 50%;
+  height: 350px;
+  margin: 0 auto;
+  margin-top: 50px;
+  padding: 100px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  background-color: #D0D1D2;
+  border: 3px solid #C8C9CB;
+  box-shadow: 9px 9px 25px 0px rgba(0,0,0,0.75);
+}
+.editor__title {
+  padding: 0;
+  margin: 0;
+  margin-bottom: 25px;
+}
+.editor__wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.back {
+  font-size: 0;
+  display: block;
+  width: 30px;
+  height: 10px;
+  background-color: #2F333C;
+  position: absolute;
+  left: 30px;
+  top: 20px;
+  cursor: pointer;
+}
+.back::before {
+  content: '';
+  position: absolute;
+  border: 10px solid transparent;
+  border-right: 10px solid #2F333C;
+  left: -20px;
+  top: -5px;
+}
