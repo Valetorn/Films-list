@@ -5,9 +5,9 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 
-import Films from './Films';
-import EditorFilms from './EditorFilms';
-import Error from './Error';
+import Films from './components/Films';
+import EditorFilms from './components/EditorFilms';
+import Error from './components/Error';
 
 ReactDOM.render(
     <BrowserRouter>

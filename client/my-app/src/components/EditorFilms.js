@@ -18,7 +18,7 @@ const EditorFilms = (props) => {
     const handleChange = (event) => {
         let target = event.target;
         
-        target.name == 'film' ? (newData.name = target.value) : (newData.year = target.value);
+        target.name === 'film' ? (newData.name = target.value) : (newData.year = target.value);
     
         setData(newData);
       }
