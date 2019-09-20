@@ -1,13 +1,16 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 
-const Films = () => {
-    const [data, setData] = useState([]);
+import { getFilms, putStateToProps, putActionsToProps } from '../store/actions/index';
+
+const Films = (props) => {
+    const { films, getFilms } = props;
 
     useEffect(() => {
         fetch('/films')
             .then(res => res.json())
-            .then(data => setData(data))
+            .then(data => getFilms(data))
             .catch(err => console.log(err));
     });
 
@@ -29,7 +32,7 @@ const Films = () => {
                     <td className='films-body__cell'><h2>Actors:</h2></td>
                 </tr>
                 {
-                    data.map(film => (
+                    Object.values(films).map(film => (
                         <tr className='films-body__row'>
                             <td className='films-body__cell films-body__cell-name' key={film._id}>
                                 <Link to={`/${film._id}`}><h3>{film.name}</h3></Link>
@@ -54,4 +57,4 @@ const Films = () => {
     );
 }
 
-export default Films;
+export default connect (putStateToProps, putActionsToProps)(Films);
