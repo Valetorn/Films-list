@@ -2,16 +2,13 @@ import React, {useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { getFilms, putStateToProps, putActionsToProps } from '../store/actions/index';
+import { putStateToProps, putActionsToProps, fetchData } from '../store/actions/index';
 
 const Films = (props) => {
-    const { films, getFilms } = props;
+    const { films, fetchData } = props;
 
     useEffect(() => {
-        fetch('/films')
-            .then(res => res.json())
-            .then(data => getFilms(data))
-            .catch(err => console.log(err));
+        fetchData();
     });
 
     return (

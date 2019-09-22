@@ -9,6 +9,13 @@ export const putStateToProps = (state) => ({
     films: state.films
 });
 
+export const fetchData = () => (dispatch) =>{
+    fetch('/films')
+    .then(res => res.json())
+    .then(res => dispatch(getFilms(res)))
+    .catch(err => console.log(err));
+}
+
 export const putActionsToProps = {
-    getFilms
+    fetchData
 }
