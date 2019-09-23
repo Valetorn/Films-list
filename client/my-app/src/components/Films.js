@@ -5,11 +5,14 @@ import { connect } from 'react-redux';
 import { putStateToProps, putActionsToProps, fetchData } from '../store/actions/index';
 
 const Films = (props) => {
-    const { films, fetchData } = props;
+    const { items, fetchData } = props;
+
+    const films = Object.values(items.entities.films);
+    const actors = items.entities.actors;
 
     useEffect(() => {
         fetchData();
-    });
+    }, []);
 
     return (
         <table className='films'>
@@ -29,7 +32,7 @@ const Films = (props) => {
                     <td className='films-body__cell'><h2>Actors:</h2></td>
                 </tr>
                 {
-                    Object.values(films).map(film => (
+                    films.map(film => (
                         <tr className='films-body__row'>
                             <td className='films-body__cell films-body__cell-name' key={film._id}>
                                 <Link to={`/${film._id}`}><h3>{film.name}</h3></Link>
@@ -37,11 +40,11 @@ const Films = (props) => {
                             <td className='films-body__cell films-body__cell-year'><h3>{film.year}</h3></td>
                             <tr className='films-body__row-insert'>
                                 {
-                                    film.actors.map(actor => (
+                                    Object.values(film.actors).map(actorId => (
                                         <div className='films-body__row-wrapper'>
-                                            <td className='films-body__cell'><b>Name: </b>{actor.name}</td>
-                                            <td className='films-body__cell'><b>Age: </b>{actor.age}</td>
-                                            <td className='films-body__cell'><b>Oscars: </b>{actor.oscars}</td>
+                                            <td className='films-body__cell'><b>Name: </b>{actors[actorId].name}</td>
+                                            <td className='films-body__cell'><b>Age: </b>{actors[actorId].age}</td>
+                                            <td className='films-body__cell'><b>Oscars: </b>{actors[actorId].oscars}</td>
                                         </div>
                                     ))
                                 }
