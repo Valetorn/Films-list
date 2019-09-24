@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import { putStateToProps, putActionsToProps, fetchData } from '../store/actions/index';
+import { putStateToProps, putActionsToProps } from '../store/actions/index';
 
 const Films = (props) => {
     const { items, fetchData } = props;

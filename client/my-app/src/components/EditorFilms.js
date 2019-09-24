@@ -1,27 +1,22 @@
 import React, {useState, useEffect} from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
+
+import { putStateToProps, putActionsToProps } from '../store/actions/index';
 
 const EditorFilms = (props) => {
+    const { items, changeFilms, fetchUpdate } = props;
+
     const id = props.match.params.id;
-
-    const [data, setData] = useState({});
-
-    const newData = {...data};
-
-    useEffect(() => {
-        fetch(`/films/${id}`)
-            .then(res => res.json())
-            .then(data => setData(data))
-            .catch(err => console.log(err));
-    }, []);
+    const film = { ...items.entities.films[id] };
 
     const handleChange = (event) => {
         let target = event.target;
         
-        target.name === 'film' ? (newData.name = target.value) : (newData.year = target.value);
+        target.name === 'film' ? (film.name = target.value) : (film.year = target.value);
     
-        setData(newData);
-      }
+        changeFilms(film);
+    }
 
     const postEditedData =  (event) => {
         event.preventDefault();
@@ -29,19 +24,10 @@ const EditorFilms = (props) => {
         const inputName = document.querySelector('#film');
         const inputYear = document.querySelector('#year');
 
-        newData.name = inputName.value;
-        newData.year = inputYear.value;
-        console.log(newData);
+        film.name = inputName.value;
+        film.year = inputYear.value;
 
-        fetch('/films/update', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json;charset=utf-8'
-            },
-            body: JSON.stringify(newData)
-        })
-            .then(() => alert('Film updated!'))
-            .catch(err => console.log(err));
+        fetchUpdate(film);
     };
 
     return (
@@ -53,12 +39,12 @@ const EditorFilms = (props) => {
             <div className='editor__wrapper'>
                 <div className='editor__input-container'>
                     <label htmlFor="film" className='editor__label'>Film's name: </label>
-                    <input type="text" id='film' name='film' className='editor__input' value={newData.name} onChange={handleChange} />
+                    <input type="text" id='film' name='film' className='editor__input' placeholder={film.name} onChange={handleChange} />
                 </div>
 
                 <div className='editor__input-container'>
                     <label htmlFor="year" className='editor__label'>Film's year: </label>
-                    <input type="text" id='year' name='year' className='editor__input' value={newData.year} onChange={handleChange} />
+                    <input type="text" id='year' name='year' className='editor__input' placeholder={film.year} onChange={handleChange} />
                 </div>
             </div>
 
@@ -67,4 +53,4 @@ const EditorFilms = (props) => {
     ) 
 };
 
-export default EditorFilms;
+export default connect(putStateToProps, putActionsToProps)(EditorFilms);
