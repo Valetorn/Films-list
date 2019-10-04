@@ -1,21 +1,28 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, FunctionComponent } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
+import { Actors, NormalizeData, FilmsState } from '../store/reducer/StateType';
 import { putStateToProps, putActionsToProps } from '../store/actions/index';
 
-const Films = (props) => {
-    const { items, fetchData } = props;
+type FilmsProps = {
+    items: NormalizeData;
+    fetchData: () => void;
+}
 
-    const films = Object.values(items.entities.films);
-    const actors = items.entities.actors;
+const Films: FunctionComponent<FilmsProps> = (props) => {
+    const { items, fetchData } = props;
 
     useEffect(() => {
         fetchData();
     }, []);
-
-    return (
-        <table className='films'>
+    
+    
+    const films: Array<FilmsState> = Object.values(items.entities.films);
+    const actors: Record<string, Actors> = items.entities.actors;
+        
+        return (
+            <table className='films'>
             <thead className='films-head'>
                 <tr className='films-head__row'>
                     <td className='films-head__cell'>
@@ -37,10 +44,12 @@ const Films = (props) => {
                             <td className='films-body__cell films-body__cell-name' key={film._id}>
                                 <Link to={`/${film._id}`}><h3>{film.name}</h3></Link>
                             </td>
-                            <td className='films-body__cell films-body__cell-year'><h3>{film.year}</h3></td>
+                            <td className='films-body__cell films-body__cell-year'>
+                                <Link to={`/${film._id}`}><h3>{film.year}</h3></Link>
+                            </td>
                             <tr className='films-body__row-insert'>
                                 {
-                                    Object.values(film.actors).map(actorId => (
+                                    Object.values(film.actors).map((actorId: string) => (
                                         <div className='films-body__row-wrapper'>
                                             <td className='films-body__cell'><b>Name: </b>{actors[actorId].name}</td>
                                             <td className='films-body__cell'><b>Age: </b>{actors[actorId].age}</td>
@@ -54,7 +63,7 @@ const Films = (props) => {
                 }
             </tbody>
         </table>
-    );
+    ); 
 }
 
 export default connect (putStateToProps, putActionsToProps)(Films);
